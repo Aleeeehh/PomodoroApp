@@ -11,14 +11,21 @@
 <body>
 
     <form id="studyForm">
-        <label for="studyTime">Enter study time in minutes:</label>
+        <label for="studyTime">Enter FOCUS TIME in minutes:</label>
         <input type="number" id="studyTime" name="studyTime" min="1" required>
-        <button type="submit">Start Studying</button>
-    </form>
-
-    <div id="clock" class="blob">
+        <button type="submit">Start Focusing</button>
+      </form>
+      
+      <div id="clock" class="blob">
         <div class="timer" id="timerDisplay">00:00</div>
-    </div>
+      </div>
+      </body>
+      
+      <form id="chillForm">
+        <label for="chillTime">Enter CHILL TIME in minutes:</label>
+        <input type="number" id="chillTime" name="chillTime" min="1" required>
+        <button type="submit">Start Chilling</button>
+      </form>
 
     <script src="script.js"></script>
 
