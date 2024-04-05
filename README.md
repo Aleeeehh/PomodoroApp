@@ -1,6 +1,6 @@
 Applicazione per studiare con il metodo del pomodoro
 
-- 06/04/24 Andrea.
+#### 06/04/24 Andrea
     Per ora siamo al livello 2 di 3 del progettino.
     La mia idea al momento è:
     - usare lo stesso timer sia per il tempo di studio che per quello di pausa
