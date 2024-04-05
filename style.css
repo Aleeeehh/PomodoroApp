@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    z-index: 2;
+    overflow: hidden;
+
+}
+
+#studyForm {
+    position: relative;
+    z-index: 10;
+    /* Ensure the form appears above the blob */
+}
+
+#clock {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.timer {
+    font-size: 2em;
+    z-index: 1;
+    color: black;
+}
+
+.blob {
+    width: 300px;
+    /* Larghezza del div .blob */
+    height: 300px;
+    /* Altezza del div .blob */
+    margin: 10% auto;
+    /* Margini: 10% sopra e sotto, centrato orizzontalmente */
+    position: relative;
+    /* Posizionamento relativo: utilizzato per posizionare gli pseudo-elementi ::before e ::after rispetto a questo elemento */
+    color: #fff;
+    /* Colore del testo all'interno del div */
+    display: flex;
+    /* Display flex per centrare il contenuto (testo o altro) all'interno del div */
+    justify-content: center;
+    /* Allinea orizzontalmente il contenuto al centro */
+    align-items: center;
+    /* Allinea verticalmente il contenuto al centro */
+    z-index: 0;
+    /* Livello z-index, determina l'ordine di sovrapposizione degli elementi */
+}
+
+.blob::before {
+    content: '';
+    /* Necessario per rendere visibile lo pseudo-elemento, anche se non contiene testo */
+    border: 2px solid #fff;
+    /* Bordo dello pseudo-elemento */
+    border-radius: 58% 42% 48% 53% / 47% 60% 36% 53%;
+    /* Raggio del bordo per creare forme organiche/irregolari */
+    width: 100%;
+    /* Larghezza: occupa tutto lo spazio disponibile nel contenitore .blob */
+    height: 100%;
+    /* Altezza: occupa tutto lo spazio disponibile nel contenitore .blob */
+    position: absolute;
+    /* Posizionamento assoluto: posizionato rispetto al primo antenato posizionato (in questo caso .blob) */
+    left: 0;
+    /* Allineato a sinistra del contenitore .blob */
+    top: 0;
+    /* Allineato in alto del contenitore .blob */
+    animation-fill-mode: forwards;
+    /* Mantiene lo stile dell'ultimo frame dell'animazione dopo che è finita */
+}
+
+/*https://css-tricks.com/almanac/selectors/a/after-and-before/*/
+
+.blob::after {
+    content: '';
+    /* Analogamente a ::before, rende visibile lo pseudo-elemento */
+    border: 2px solid #fff;
+    /* Bordo dello pseudo-elemento */
+    border-radius: 48% 42% 48% 53% / 47% 60% 36% 53%;
+    /* Raggio del bordo per creare forme diverse rispetto a ::before */
+    width: 100%;
+    /* Larghezza come ::before */
+    height: 100%;
+    /* Altezza come ::before */
+    background: rgba(244, 166, 166, 0.1);
+    /* Sfondo leggermente trasparente per differenziarlo da ::before */
+    position: absolute;
+    /* Posizionamento assoluto come ::before */
+    left: 0;
+    /* Allineato a sinistra come ::before */
+    top: 0;
+    /* Allineato in alto come ::before */
+    animation-fill-mode: forwards;
+    /* Mantiene lo stile dell'ultimo frame dell'animazione come ::before */
+}
+
+@keyframes rotate {
+    0% {
+        transform: scale(1) rotate(0deg);
+        border-color: #EC0D0D;
+    }
+
+    50% {
+        transform: scale(3) rotate(360deg);
+        /* Adjust the scale value at 50% as needed */
+        border-color: #f4c01c;
+    }
+
+    100% {
+        transform: scale(6) rotate(360deg);
+        /* Keep rotation the same as at 50% */
+        border-color: #EC0D0D;
+    }
+}
