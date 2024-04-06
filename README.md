@@ -1,5 +1,12 @@
 Applicazione per studiare con il metodo del pomodoro
 
+#### 06/04/24 Ale
+    -Ho rifatto da zero l'html ed il css dell'app
+    -Ho ripreso l'idea di Andre per l'animazione da rosso a verde
+    -Per ora funziona solo l'inserimento di StudyTime
+    -COSA MANCA: breakTime e studyCycles non li ho ancora implementati per questioni di tempo, ma dovrebbero essere uguali a studyTime
+    -COSA MANCA(2): vorrei aggiungere un'animazione in cui il bordo del pomodoro, oltre a cambiare colore, si "consuma" (tipo uno snake che si accorcia col passare del tempo)
+
 #### 06/04/24 Andrea
     Per ora siamo al livello 2 di 3 del progettino.
     La mia idea al momento è:
