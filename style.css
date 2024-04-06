@@ -1,71 +1,96 @@
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-    z-index: 2;
-    overflow: shown;
-
-  }
-  #studyForm {
-    position: relative;
-    z-index: 10; /* Ensure the form appears above the blob */
-  }
-  #chillForm {
-    position: relative;
-    z-index: 10; /* Ensure the form appears above the blob */
-  }
-
-  #clock {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-  }
-
-  .timer {
-    font-size: 2em;
-    z-index: 1;
-    color: black;
-  }
-
-  .blob {
-    width: 10px; /* Larghezza del div .blob */
-    height: 10px; /* Altezza del div .blob */
-    margin: 10% auto; /* Margini: 10% sopra e sotto, centrato orizzontalmente */
-    border-radius: 50%;
-    background-color: transparent;
-    position: relative; /* Posizionamento relativo: utilizzato per posizionare gli pseudo-elementi ::before e ::after rispetto a questo elemento */
-    color: #fff; /* Colore del testo all'interno del div */
-    display: flex; /* Display flex per centrare il contenuto (testo o altro) all'interno del div */
-    justify-content: center; /* Allinea orizzontalmente il contenuto al centro */
-    align-items: center; /* Allinea verticalmente il contenuto al centro */
-    z-index: 0; /* Livello z-index, determina l'ordine di sovrapposizione degli elementi */
-    animation-fill-mode: forwards;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  background-color: rgba(57, 16, 16, 0.723);
 }
 
- 
-@keyframes example1 {
-0% {
-  background-color: green;
-  transform: scale(1);
-  }
-100% {
-  background-color: red;
-  transform: scale(4);}
+
+header {
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0px;
+  align-items: center;
+  justify-content: center;
 }
 
-@keyframes example2 {
-0% {
-  background-color: red;
-  transform: scale(4);
+
+
+.timer {
+  font-size: 3em;
+  margin-top: 45px;
+  color: rgb(255, 255, 255);
+}
+
+
+.pomodoro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  color: white;
+  border: 5px solid rgb(228, 66, 66);
+  border-radius: 45%;
+  cursor: pointer;
+  /*
+  animation: changeBorderColor 5s linear infinite alternate;
+  */
+}
+
+.pannello {
+  display: flex;
+  background-color: rgb(206, 182, 163);
+  margin: 10px;
+  padding: -px;
+  border-radius: 16px;
+
+}
+
+.studyTime {
+  width: 400px;
+  justify-content: space-between;
+}
+
+input {
+  border-radius: 0px 16px 16px 0px;
+  border: none;
+  padding: 16px;
+  font-size: 15px;
+}
+
+.breakTime {
+  width: 400px;
+  justify-content: space-between;
+}
+
+.studyCycles {
+  width: 400px;
+  justify-content: space-between;
+}
+
+
+.animate-border {
+  animation: changeBorderColor 10s linear alternate;
+  /* Applica l'animazione al colore del bordo */
+}
+
+
+
+
+/* animazione per cambiare colore del pomodoro*/
+@keyframes changeBorderColor {
+  0% {
+    border-color: green;
   }
-100% {
-  background-color: green;
-  transform: scale(1);}
+
+  100% {
+    border-color: rgb(228, 66, 66);
+  }
 }
