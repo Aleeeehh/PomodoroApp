@@ -1,45 +1,145 @@
+const timerElement = document.getElementById("timer");
+const statusElement = document.getElementById("status");
 
-const tempo = document.querySelector(".timer");
+const startButton = document.getElementById("start-button");
+const stopButton = document.getElementById("stop-button");
 
-const bottoneStart = document.querySelector(".pomodoro");
+const studyTimeElement = document.getElementById("inputStudy");
+const pauseTimeElement = document.getElementById("inputPause");
+const studyCyclesElement = document.getElementById("inputCycles");
 
-const studyTime = document.querySelector(".inputStudyTime");
+const defaultMinutes = 5;
+const defaultSeconds = 0;
+const nullSeconds = 0;
+const defaultPause = 1;
+const defaultCycles = 1;
+const TIMER_PERIOD = 30;
 
-/*inizializzo minuti e secondi a zero */
-let minuti = 0;
-let secondi = 0;
+let studyTime, pauseTime, cycles;
+let minutes, seconds, interval, isStudySession;
 
+let statusList = {
+	BEGIN: "BEGIN SESSION!",
+	STUDY: "STUDY",
+	END: "END OF SESSION",
+	PAUSE: "PAUSE",
+};
 
-function decrementaTempo() {
-  if (secondi === 0 && minuti === 0) {
-    clearInterval(intervallo);
-    return;
-  }
+statusElement.innerText = statusList.BEGIN;
 
-  if (secondi === 0) {
-    minuti--;
-    secondi = 59;
-  } else {
-    secondi--;
-  }
+function disableInputs(isDisabled) {
+	startButton.disabled = isDisabled;
+	stopButton.disabled = !isDisabled;
 
-  tempo.innerText = `${minuti.toString().padStart(2, '0')}:${secondi.toString().padStart(2, '0')}`;
+	studyTimeElement.disabled = isDisabled;
+	pauseTimeElement.disabled = isDisabled;
+	studyCyclesElement.disabled = isDisabled;
+}
+
+function updateTimerText() {
+	timerElement.innerText = pad(minutes) + ":" + pad(seconds);
 }
 
 function startAnimation() {
-  /*converto studyTime da minuti a ms*/
-  const durataAnimazione = studyTime.value * 60 * 1000;
-  /*aggiungo al pomodoro la classe css "animate-border"*/
-  bottoneStart.classList.add("animate-border");
-  /*la variazione di colore dura quanto il numero dato in input*/
-  bottoneStart.style.animationDuration = `${durataAnimazione}ms`;
+	/*converto studyTime da minutes a ms*/
+	const durataAnimazione = studyTime.value * 60 * 1000;
+	/*aggiungo al pomodoro la classe css "animate-border"*/
+	startButton.classList.add("animate-border");
+	/*la variazione di colore dura quanto il numero dato in input*/
+	startButton.style.animationDuration = `${durataAnimazione}ms`;
 }
 
+function startTimer() {
+	isStudySession = true;
+	disableInputs(true);
+	cycles--; // reduce cycles number to align loop
 
-bottoneStart.addEventListener("click", () => {
-  /*metto come tempo del pomodoro, quello dato in input in "studyTime" */
-  minuti = studyTime.value;
-  secondi = 0;
-  startAnimation();
-  intervallo = setInterval(decrementaTempo, 1000); // Esegui decrementaTempo ogni 1000 ms (1 secondo)
+	minutes = studyTime;
+	seconds = nullSeconds;
+	updateTimerText();
+
+	console.log("Start!", studyTime, pauseTime, cycles);
+
+	statusElement.innerText = statusList.STUDY;
+	timer = setInterval(updateTimer, TIMER_PERIOD);
+}
+
+function stopTimer() {
+	clearInterval(timer);
+	minutes = studyTime;
+	seconds = nullSeconds;
+	disableInputs(false);
+	statusElement.innerText = statusList.END;
+
+	console.log("Stop!", studyTime, pauseTime, cycles);
+
+	initData();
+}
+
+function updateTimer() {
+	seconds--;
+	if (seconds < 0) {
+		seconds = 59;
+		minutes--;
+	}
+	console.log(minutes, seconds, "Residual cycles: " + cycles, isStudySession ? "Study" : "Pause");
+	if (minutes < 0) {
+		// End of session
+		if (!cycles) {
+			stopTimer();
+			return;
+		}
+		// There are residual sessions
+		if (isStudySession) {
+			// End of study session, enter pause
+			statusElement.innerText = statusList.PAUSE;
+			isStudySession = false;
+			minutes = pauseTime;
+			seconds = nullSeconds;
+		} else {
+			// End of pause session, start next study session
+			isStudySession = true;
+			statusElement.innerText = statusList.STUDY;
+
+			minutes = studyTime;
+			seconds = nullSeconds;
+			cycles--;
+		}
+	}
+	timerElement.innerText = pad(minutes) + ":" + pad(seconds);
+}
+
+function pad(value) {
+	return value < 10 ? "0" + value : value;
+}
+
+startButton.addEventListener("click", () => {
+	startTimer();
+	// startAnimation();
 });
+
+stopButton.addEventListener("click", () => {
+	stopTimer();
+});
+
+document.getElementById("inputStudy").addEventListener("change", function () {
+	minutes = studyTime = parseInt(this.value) || defaultMinutes;
+	updateTimerText();
+});
+document.getElementById("inputPause").addEventListener("change", function () {
+	pauseTime = parseInt(this.value) || defaultPause;
+});
+document.getElementById("inputCycles").addEventListener("change", function () {
+	cycles = parseInt(this.value) || defaultCycles;
+});
+
+function initData() {
+	studyTime = parseInt(studyTimeElement.value) || defaultMinutes;
+	pauseTime = parseInt(pauseTimeElement.value) || defaultPause;
+	cycles = parseInt(studyCyclesElement.value) || defaultCycles;
+	minutes = studyTime;
+	seconds = nullSeconds;
+	updateTimerText();
+}
+
+initData();
