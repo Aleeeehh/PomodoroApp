@@ -54,9 +54,7 @@ function startTimer() {
 	disableInputs(true);
 	cycles--; // reduce cycles number to align loop
 
-	minutes = studyTime;
-	seconds = nullSeconds;
-	updateTimerText();
+	initData();
 
 	console.log("Start!", studyTime, pauseTime, cycles);
 
@@ -72,8 +70,7 @@ function stopTimer() {
 	statusElement.innerText = statusList.END;
 
 	console.log("Stop!", studyTime, pauseTime, cycles);
-
-	initData();
+	timerElement.innerText = "";
 }
 
 function updateTimer() {
@@ -124,7 +121,6 @@ stopButton.addEventListener("click", () => {
 
 document.getElementById("inputStudy").addEventListener("change", function () {
 	minutes = studyTime = parseInt(this.value) || defaultMinutes;
-	updateTimerText();
 });
 document.getElementById("inputPause").addEventListener("change", function () {
 	pauseTime = parseInt(this.value) || defaultPause;
@@ -141,5 +137,3 @@ function initData() {
 	seconds = nullSeconds;
 	updateTimerText();
 }
-
-initData();
