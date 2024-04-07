@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Study Timer</title>
+    <link rel="icon" type="image/png" href="tomato.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="body">
+
+    <header>
+        <h1>POMODORO TIMER</h1>
+    </header>
+
+    <div class="pomodoro">
+        <img id="pomodoro-img" src="tomato.png">
+        <div id="timer" class="timer"></div>
+    </div>
+
+    <div>
+        <h4 id="status" style="margin: 0.5em auto 1em; width: 300px; color: white; text-align: center;"></h4>
+        <button id="start-button" type="button" class="btn btn-success">START</button>
+        <button id="stop-button" type="button" class="btn btn-danger" disabled>STOP</button>
+        <p style="margin: 0.5em auto 1em; width: 300px; color: white; text-align: center;">PRESS START TO BEGIN</p>
+    </div>
+
+    <div class="pannello studyTime">
+        <label for="inputStudy">Study time in minutes</label>
+        <input name="inputStudy" type="text" placeholder="Enter the time" class="inputStudyTime" id="inputStudy">
+
+    </div>
+
+    <div class="pannello breakTime">
+        <label for="inputPause"> Break time in minutes </label>
+        <input name="inputPause" type="text" placeholder="Enter the time" id="inputPause">
+    </div>
+
+    <div class="pannello studyCycles">
+        <label for="inputCycles"> Number of study cycles </label>
+        <input name="inputCycles" type="text" placeholder="Enter the study cycles" id="inputCycles">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+
+</html>
