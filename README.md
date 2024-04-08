@@ -1,5 +1,10 @@
 Applicazione per studiare con il metodo del pomodoro
 
+#### 07/04/2024 Andrea
+
+-   aggiunta la rotazione in senso orario per lo studyTime
+-   aggiunta la rotazione in senso antiorario per il pauseTime
+
 #### 06/04/2024 Pinna
 
 -   inserita la logica per gestire le pause e le sessioni multiple
