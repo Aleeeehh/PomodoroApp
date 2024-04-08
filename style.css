@@ -33,12 +33,20 @@ h1 {
 	height: 100%;
 }
 
+.paragraph {
+	margin: 0.5em auto 1em;
+	width: 300px;
+	color: white;
+	text-align: center;
+}
+
 .pomodoro {
 	position: relative;
 	width: 300px;
 	height: 300px;
 	color: white;
 	text-align: center;
+
 }
 
 .timer {
@@ -84,21 +92,43 @@ input {
 	justify-content: space-between;
 }
 
-.animate-border {
-	animation: changeBorderColor 10s linear alternate;
-	/* Applica l'animazione al colore del bordo */
+.animate-pomodoro {
+	animation: colorChange linear forwards;
 }
 
-/* animazione per cambiare colore del pomodoro*/
-@keyframes changeBorderColor {
+.reverse-animate-pomodoro {
+	animation: reverseColorChange linear forwards;
+}
+
+
+@keyframes colorChange {
 	0% {
-		border-color: green;
+		filter: hue-rotate(0deg);
 	}
 
+	/* Inizio dell'animazione: colore rosso */
 	100% {
-		border-color: rgb(228, 66, 66);
+		filter: hue-rotate(60deg);
 	}
+
+	/* Fine dell'animazione: colore verde */
 }
+
+@keyframes reverseColorChange {
+	0% {
+		filter: hue-rotate(60deg);
+	}
+
+	/* Inizio dell'animazione: colore rosso */
+	100% {
+		filter: hue-rotate(0deg);
+	}
+
+	/* Fine dell'animazione: colore verde */
+}
+
+
+
 
 button {
 	width: 150px;

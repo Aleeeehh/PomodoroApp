@@ -1,5 +1,8 @@
 const timerElement = document.getElementById("timer");
 const statusElement = document.getElementById("status");
+const paragraph = document.querySelector(".paragraph");
+const pomodoroElement = document.querySelector(".pomodoro");
+const pomodoroImage = document.querySelector("img");
 
 const startButton = document.getElementById("start-button");
 const stopButton = document.getElementById("stop-button");
@@ -41,25 +44,32 @@ function updateTimerText() {
 }
 
 function startAnimation() {
-	/*converto studyTime da minutes a ms*/
-	const durataAnimazione = studyTime.value * 60 * 1000;
-	/*aggiungo al pomodoro la classe css "animate-border"*/
-	startButton.classList.add("animate-border");
-	/*la variazione di colore dura quanto il numero dato in input*/
-	startButton.style.animationDuration = `${durataAnimazione}ms`;
+	pomodoroElement.classList.remove("animate-pomodoro");
+	pomodoroElement.classList.remove("reverse-animate-pomodoro");
+	if (isStudySession) {
+		pomodoroElement.style.animationDuration = (studyTimeElement.value * 60) + "s";
+		pomodoroElement.classList.add("animate-pomodoro");
+	}
+
+	if (!isStudySession) {
+		pomodoroElement.style.animationDuration = (pauseTimeElement.value * 60) + "s";
+		pomodoroElement.classList.add("reverse-animate-pomodoro");
+
+	}
 }
+
+
 
 function startTimer() {
 	isStudySession = true;
 	disableInputs(true);
-	cycles--; // reduce cycles number to align loop
 
 	initData();
-
-	console.log("Start!", studyTime, pauseTime, cycles);
+	cycles--; // reduce cycles number to align loop
 
 	statusElement.innerText = statusList.STUDY;
-	timer = setInterval(updateTimer, TIMER_PERIOD);
+	timer = setInterval(updateTimer, 1000);
+
 }
 
 function stopTimer() {
@@ -68,21 +78,23 @@ function stopTimer() {
 	seconds = nullSeconds;
 	disableInputs(false);
 	statusElement.innerText = statusList.END;
-
-	console.log("Stop!", studyTime, pauseTime, cycles);
+	console.log("dentro stoptimer");
 	timerElement.innerText = "";
+	resetPomodoroColor();
 }
 
 function updateTimer() {
+
 	seconds--;
 	if (seconds < 0) {
 		seconds = 59;
 		minutes--;
 	}
-	console.log(minutes, seconds, "Residual cycles: " + cycles, isStudySession ? "Study" : "Pause");
+	//console.log(minutes, seconds, "Residual cycles: " + cycles, isStudySession ? "Study" : "Pause");
 	if (minutes < 0) {
+
 		// End of session
-		if (!cycles) {
+		if (cycles == 0) {
 			stopTimer();
 			return;
 		}
@@ -91,11 +103,13 @@ function updateTimer() {
 			// End of study session, enter pause
 			statusElement.innerText = statusList.PAUSE;
 			isStudySession = false;
+			startAnimation();
 			minutes = pauseTime;
 			seconds = nullSeconds;
 		} else {
 			// End of pause session, start next study session
 			isStudySession = true;
+			startAnimation();
 			statusElement.innerText = statusList.STUDY;
 
 			minutes = studyTime;
@@ -110,9 +124,46 @@ function pad(value) {
 	return value < 10 ? "0" + value : value;
 }
 
+function initData() {
+	studyTime = parseInt(studyTimeElement.value);
+	pauseTime = parseInt(pauseTimeElement.value);
+	cycles = parseInt(studyCyclesElement.value);
+	minutes = studyTime;
+	seconds = nullSeconds;
+	updateTimerText();
+}
+
+function inputCheck() {
+	const isStudyTimeValid = studyTimeElement.value && !isNaN(studyTimeElement.value) && Number.isInteger(parseFloat(studyTimeElement.value)) && studyTimeElement.value != 0;
+	const isPauseTimeValid = pauseTimeElement.value && !isNaN(pauseTimeElement.value) && Number.isInteger(parseFloat(pauseTimeElement.value)) && pauseTimeElement.value != 0;
+	const isStudyCyclesValid = studyCyclesElement.value && !isNaN(studyCyclesElement.value) && Number.isInteger(parseFloat(studyCyclesElement.value)) && studyCyclesElement.value != 0;
+
+	return isStudyTimeValid && isPauseTimeValid && isStudyCyclesValid;
+}
+
+function resetPomodoroColor() {
+	// Imposta la durata dell'animazione su un valore molto breve
+	pomodoroElement.style.animationDuration = "0.1s";
+	pomodoroElement.classList.add("animate-pomodoro");
+	setTimeout(() => {
+		pomodoroElement.classList.remove("animate-pomodoro");
+	}, 100);
+}
+
 startButton.addEventListener("click", () => {
-	startTimer();
-	// startAnimation();
+	console.log(paragraph);
+	if (inputCheck()) {
+		paragraph.innerText = " ";
+		startTimer();
+		startAnimation();
+		console.log("dopo starttimer");
+
+	}
+
+	else {
+		paragraph.innerText = "INSERT AN INTEGER NUMBER FOR STUDY TIME, PAUSE TIME AND STUDY CYCLES!";
+	}
+
 });
 
 stopButton.addEventListener("click", () => {
@@ -129,11 +180,3 @@ document.getElementById("inputCycles").addEventListener("change", function () {
 	cycles = parseInt(this.value) || defaultCycles;
 });
 
-function initData() {
-	studyTime = parseInt(studyTimeElement.value) || defaultMinutes;
-	pauseTime = parseInt(pauseTimeElement.value) || defaultPause;
-	cycles = parseInt(studyCyclesElement.value) || defaultCycles;
-	minutes = studyTime;
-	seconds = nullSeconds;
-	updateTimerText();
-}
