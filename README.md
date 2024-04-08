@@ -1,6 +1,6 @@
 Applicazione per studiare con il metodo del pomodoro
 
-àòààà
+
 
 #### 08/04/2024 Ale
      -fixato qualche piccolo bug
