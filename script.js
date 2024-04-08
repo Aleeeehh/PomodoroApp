@@ -78,7 +78,6 @@ function stopTimer() {
 	seconds = nullSeconds;
 	disableInputs(false);
 	statusElement.innerText = statusList.END;
-	console.log("dentro stoptimer");
 	timerElement.innerText = "";
 	resetPomodoroColor();
 }
@@ -134,9 +133,9 @@ function initData() {
 }
 
 function inputCheck() {
-	const isStudyTimeValid = studyTimeElement.value && !isNaN(studyTimeElement.value) && Number.isInteger(parseFloat(studyTimeElement.value)) && studyTimeElement.value != 0;
-	const isPauseTimeValid = pauseTimeElement.value && !isNaN(pauseTimeElement.value) && Number.isInteger(parseFloat(pauseTimeElement.value)) && pauseTimeElement.value != 0;
-	const isStudyCyclesValid = studyCyclesElement.value && !isNaN(studyCyclesElement.value) && Number.isInteger(parseFloat(studyCyclesElement.value)) && studyCyclesElement.value != 0;
+	const isStudyTimeValid = studyTimeElement.value && !isNaN(studyTimeElement.value) && Number.isInteger(parseFloat(studyTimeElement.value)) && studyTimeElement.value > 0 && studyTimeElement.value < 100;
+	const isPauseTimeValid = pauseTimeElement.value && !isNaN(pauseTimeElement.value) && Number.isInteger(parseFloat(pauseTimeElement.value)) && pauseTimeElement.value > 0 && pauseTimeElement.value < 100;
+	const isStudyCyclesValid = studyCyclesElement.value && !isNaN(studyCyclesElement.value) && Number.isInteger(parseFloat(studyCyclesElement.value)) && studyCyclesElement.value > 0 && studyCyclesElement.value < 100;
 
 	return isStudyTimeValid && isPauseTimeValid && isStudyCyclesValid;
 }
@@ -156,12 +155,11 @@ startButton.addEventListener("click", () => {
 		paragraph.innerText = " ";
 		startTimer();
 		startAnimation();
-		console.log("dopo starttimer");
 
 	}
 
 	else {
-		paragraph.innerText = "INSERT AN INTEGER NUMBER FOR STUDY TIME, PAUSE TIME AND STUDY CYCLES!";
+		paragraph.innerText = "INSERT AN INTEGER NUMBER FOR STUDY TIME, PAUSE TIME AND STUDY CYCLES! (1-99)";
 	}
 
 });
