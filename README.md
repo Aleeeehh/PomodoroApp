@@ -1,5 +1,14 @@
 Applicazione per studiare con il metodo del pomodoro
 
+
+#### 08/04/2024 Ale
+     -fixato qualche piccolo bug
+     -aggiunto qualche controllo sull'input
+     -aggiunta animazione del pomodoro
+     -TODO:  provate a romperlo per cercare dei bug, se tutto è apposto si può procedere alla consegna
+     -NOTA: l'updateTimer è settato a 1000ms come per essere consegnato, l'animazione funziona bene se
+     questo valore rimane tale (perchè in startAnimation converte direttamente l'input in secondi)
+
 #### 06/04/2024 Pinna
 
 -   inserita la logica per gestire le pause e le sessioni multiple
