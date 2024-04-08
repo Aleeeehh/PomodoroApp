@@ -4,6 +4,7 @@ Applicazione per studiare con il metodo del pomodoro
 
 -   aggiunta la rotazione in senso orario per lo studyTime
 -   aggiunta la rotazione in senso antiorario per il pauseTime
+-       prova push
 
 #### 06/04/2024 Pinna
 
