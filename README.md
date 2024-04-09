@@ -6,6 +6,7 @@ Applicazione per studiare con il metodo del pomodoro
      -fixato qualche piccolo bug
      -aggiunto qualche controllo sull'input
      -aggiunta animazione del pomodoro
+     -aggiunto suono di una specie di timer da cucina
      -TODO:  provate a romperlo per cercare dei bug, se tutto è apposto
      si può procedere alla consegna
      -NOTA: l'updateTimer è settato a 1000ms come per essere consegnato, l'animazione 
