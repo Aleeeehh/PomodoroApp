@@ -4,6 +4,8 @@ const paragraph = document.querySelector(".paragraph");
 const pomodoroElement = document.querySelector(".pomodoro");
 const pomodoroImage = document.querySelector("img");
 
+const ring = document.getElementById("ring");
+
 const startButton = document.getElementById("start-button");
 const stopButton = document.getElementById("stop-button");
 
@@ -102,12 +104,18 @@ function updateTimer() {
 			// End of study session, enter pause
 			statusElement.innerText = statusList.PAUSE;
 			isStudySession = false;
+			//fai partire il suono del campanello quando comincia la pausa
+			ring.play();
+			//esegui l'animazione al contrario (verde -> rosso)
 			startAnimation();
 			minutes = pauseTime;
 			seconds = nullSeconds;
 		} else {
 			// End of pause session, start next study session
 			isStudySession = true;
+			//fai partire il suono del campanello quando comincia lo studio
+			ring.play();
+			//esegui l'animazione standard (rosso -> verde)
 			startAnimation();
 			statusElement.innerText = statusList.STUDY;
 
@@ -150,9 +158,10 @@ function resetPomodoroColor() {
 }
 
 startButton.addEventListener("click", () => {
-	console.log(paragraph);
 	if (inputCheck()) {
 		paragraph.innerText = " ";
+		//fai il suono del campanello se inizio una sessione
+		ring.play();
 		startTimer();
 		startAnimation();
 
@@ -165,6 +174,8 @@ startButton.addEventListener("click", () => {
 });
 
 stopButton.addEventListener("click", () => {
+	//fai il suono del campanello se fermo il pomodoro
+	ring.play();
 	stopTimer();
 });
 
